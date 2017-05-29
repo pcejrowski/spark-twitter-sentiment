@@ -24,15 +24,17 @@ object TwitterSentiment {
       .window(Minutes(1))
 
     stream
-      .filter { status => status.getLang == "pl" }
+      .filter { status => status.getLang == "en" }
       .map { status =>
         val sentiment: Sentiment = SentimentAnalyzer.mainSentiment(status.getText)
-        val tags: Array[String] = status
+        val tags: Seq[String] = status
           .getHashtagEntities
           .map(_.getText.toLowerCase(Locale.ENGLISH))
+          .toSeq
 
         (status.getText, sentiment.toString, tags)
       }
+      .filter(_._3.nonEmpty)
       .print(100)
     ssc.start()
     ssc.awaitTermination()
