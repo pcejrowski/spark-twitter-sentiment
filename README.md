@@ -10,3 +10,4 @@ Then, you can add the following vm-options:
 -Dtwitter4j.oauth.accessToken=XXX \
 -Dtwitter4j.oauth.accessTokenSecret=XXX
 ```
+To obtain those token, you have to establish Twitter app here: https://apps.twitter.com
