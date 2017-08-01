@@ -1,10 +1,10 @@
 name := "spark-twitter-sentiment"
 
-version := "1.0"
+version := "0.1"
 
 scalaVersion := "2.11.8"
 
-val sparkVersion = "2.1.1"
+val sparkVersion = "2.2.0"
 
 libraryDependencies += "org.apache.spark" %% "spark-core" % sparkVersion
 libraryDependencies += "org.apache.spark" %% "spark-mllib" % sparkVersion

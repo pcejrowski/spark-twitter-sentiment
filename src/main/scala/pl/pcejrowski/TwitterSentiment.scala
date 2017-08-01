@@ -1,41 +1,30 @@
 package pl.pcejrowski
 
-import java.util.Locale
-
 import org.apache.spark.ml.linalg.{Vector => MLVector}
 import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.twitter._
 import org.apache.spark.streaming.{Minutes, Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
-import pl.pcejrowski.Sentiment.Sentiment
 import twitter4j.Status
 
 object TwitterSentiment {
 
   def main(args: Array[String]): Unit = {
     val config = new SparkConf()
-      .setAppName("twitter-sentiment").setMaster("local[*]")
+      .setAppName("twitter-sentiment")
+      .setMaster("local[*]")
     val sc = new SparkContext(config)
     sc.setLogLevel("ERROR")
 
-    val ssc = new StreamingContext(sc, Seconds(5))
+    val ssc = new StreamingContext(config, Seconds(5))
     val stream: DStream[Status] = TwitterUtils
       .createStream(ssc, None)
       .window(Minutes(1))
 
     stream
-      .filter { status => status.getLang == "en" }
-      .map { status =>
-        val sentiment: Sentiment = SentimentAnalyzer.mainSentiment(status.getText)
-        val tags: Seq[String] = status
-          .getHashtagEntities
-          .map(_.getText.toLowerCase(Locale.ENGLISH))
-          .toSeq
+      .map(_.getText)
+      .print(10)
 
-        (status.getText, sentiment.toString, tags)
-      }
-      .filter(_._3.nonEmpty)
-      .print(100)
     ssc.start()
     ssc.awaitTermination()
   }
