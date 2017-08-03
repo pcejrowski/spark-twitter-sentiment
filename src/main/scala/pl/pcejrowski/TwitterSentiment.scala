@@ -3,9 +3,8 @@ package pl.pcejrowski
 import org.apache.spark.ml.linalg.{Vector => MLVector}
 import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.twitter._
-import org.apache.spark.streaming.{Minutes, Seconds, StreamingContext}
+import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
-import twitter4j.Status
 
 object TwitterSentiment {
 
@@ -17,15 +16,20 @@ object TwitterSentiment {
     sc.setLogLevel("ERROR")
 
     val ssc = new StreamingContext(config, Seconds(5))
-    val stream: DStream[Status] = TwitterUtils
+    val stream: DStream[String] = TwitterUtils
       .createStream(ssc, None)
-      .window(Minutes(1))
-
-    stream
+      .window(Seconds(10))
       .map(_.getText)
+
+    emotions(stream)
       .print(10)
 
     ssc.start()
     ssc.awaitTermination()
   }
+
+  def emotions(stream: DStream[String]): DStream[Int] = {
+    stream.map(SentimentAnalyzer.mainSentiment)
+  }
+
 }
