@@ -10,8 +10,10 @@ libraryDependencies += "org.apache.spark" %% "spark-core" % sparkVersion
 libraryDependencies += "org.apache.spark" %% "spark-mllib" % sparkVersion
 libraryDependencies += "org.apache.spark" %% "spark-streaming" % sparkVersion
 libraryDependencies += "org.apache.spark" %% "spark-streaming-kafka-0-10" % sparkVersion
-libraryDependencies += "org.apache.bahir" %% "spark-streaming-twitter" % "2.1.0"
-libraryDependencies += "edu.stanford.nlp" % "stanford-corenlp" % "3.7.0" artifacts (Artifact("stanford-corenlp", "models"), Artifact("stanford-corenlp"))
+libraryDependencies += "org.apache.bahir" %% "spark-streaming-twitter" % sparkVersion
+libraryDependencies += "com.github.benfradet" %% "spark-kafka-writer" % "0.4.0"
+
+libraryDependencies += "edu.stanford.nlp" % "stanford-corenlp" % "3.7.0" artifacts(Artifact("stanford-corenlp", "models"), Artifact("stanford-corenlp"))
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.3"
 libraryDependencies += "com.holdenkarau" %% "spark-testing-base" % "2.2.0_0.7.2" % "test"
 

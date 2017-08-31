@@ -1,4 +1,4 @@
-package pl.pcejrowski
+package pl.pcejrowski.streams
 
 import com.holdenkarau.spark.testing.StreamingSuiteBase
 import org.scalatest.FunSuite

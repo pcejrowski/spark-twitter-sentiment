@@ -1,10 +1,11 @@
-package pl.pcejrowski
+package pl.pcejrowski.streams
 
 import org.apache.spark.ml.linalg.{Vector => MLVector}
 import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.twitter._
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
+import pl.pcejrowski.utils.SentimentAnalyzer
 
 object TwitterSentiment {
 

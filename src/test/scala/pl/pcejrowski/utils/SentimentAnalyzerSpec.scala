@@ -1,4 +1,4 @@
-package pl.pcejrowski
+package pl.pcejrowski.utils
 
 import org.scalatest.{FunSpec, Matchers}
 
