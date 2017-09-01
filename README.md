@@ -19,7 +19,7 @@ Then, you can add the following vm-options:
   --zookeeper localhost:2181/kafka
 ```
 
-### Creating topic
+### Create topic
 ```bash
 ./kafka-topics.sh --create \
   --topic topic-name \
@@ -28,7 +28,14 @@ Then, you can add the following vm-options:
   --zookeeper localhost:2181/kafka
 ```
 
-### Listining on topic
+### Delete topic
+```bash
+./kafka-topics.sh --delete \
+  --topic topic-name \
+  --zookeeper localhost:2181/kafka
+```
+
+### Listen to topic
 ```bash
 ./kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 \
@@ -37,7 +44,7 @@ Then, you can add the following vm-options:
   --property key.separator=":"
 ```
 
-### Sending keyed messages to Kafka:
+### Send keyed messages to Kafka:
 ```bash
 ./kafka-console-producer.sh \
   --broker-list localhost:9092 \
@@ -46,7 +53,9 @@ Then, you can add the following vm-options:
   --property "key.separator=:"
 ```
 
-TODO:
+# TODO:
+* make the workshop look fancy, better commits etc.!
+* create new project
 * create workshop template with .g8 replacing kafka address and twitter creadentials 
 * include git history into g8, so thet groll can be used
 * create good slides

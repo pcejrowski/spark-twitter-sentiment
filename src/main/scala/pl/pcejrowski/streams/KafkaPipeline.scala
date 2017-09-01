@@ -14,7 +14,7 @@ object KafkaPipeline {
 
   def main(args: Array[String]): Unit = {
     val config = new SparkConf()
-      .setAppName("twitter-sentiment")
+      .setAppName("kafka-pipeline")
       .setMaster("local[*]")
     val sc = new SparkContext(config)
     sc.setLogLevel("ERROR")
@@ -27,15 +27,15 @@ object KafkaPipeline {
       "value.deserializer" -> classOf[StringDeserializer].getName,
       "key.serializer" -> classOf[StringSerializer].getName,
       "value.serializer" -> classOf[StringSerializer].getName,
-      "group.id" -> "pawel-test")
+      "group.id" -> "test")
 
     KafkaUtils
-      .createDirectStream(ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.Subscribe[String, String](Seq("test-pcej"), kafkaParams))
+      .createDirectStream(ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.Subscribe[String, String](Seq("test1"), kafkaParams))
       .flatMap(msg => toTokens(msg))
       .mapWithState(stateSpec)
       .filter(_.isDefined)
       .map(_.get)
-      .writeToKafka(kafkaParams, record => new ProducerRecord[String, String]("oslo-workshop", record._1, record._2))
+      .writeToKafka(kafkaParams, record => new ProducerRecord[String, String]("test2", record._1, record._2))
 
     ssc.start()
     ssc.awaitTermination()
